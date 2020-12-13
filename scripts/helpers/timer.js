@@ -1,22 +1,35 @@
 const timeDOM = document.getElementById('timeSpent');
 
+export let timerInit;
 export function startTimer(){
-    return 'started!'
+    timerInit = setInterval(timer, 1000);
 };
 
 export function stopTimer(timerVar){
     clearInterval(timerVar);
 };
 
-let activeTime = 0;
+let activeTimeSec = 57;
+let activeTimeMin = 0;
 export function timer() {
-    activeTime +=1;
+    activeTimeSec +=1;
     
-    if (activeTime <= 9) {
-        timeDOM.innerHTML = '0' + activeTime;
-    } else if (activeTime > 60 ) {
-        timeDOM.innerHTML = `0${Math.floor(activeTime/60)}:${activeTime - Math.floor(activeTime/60) * 60}`
-    } else {
-        timeDOM.innerHTML = activeTime;
+    if (activeTimeSec > 60) {
+        ++activeTimeMin
+        activeTimeSec=0
     }
+    // if (activeTimeSec <= 9 && activeTimeMin === 0) {
+    //     timeDOM.innerHTML = `00:0${activeTimeSec}`;
+    // } else if (activeTimeSec >=10 && activeTimeSec < 60 && activeTimeMin === 0) {
+    //     timeDOM.innerHTML = `00:${activeTimeSec}`;
+    // } else if (activeTimeSec >= 60) {
+    //     ++activeTimeMin;
+    //     activeTimeSec = 0;
+    //     timeDOM.innerHTML = `0${activeTimeMin}:0${activeTimeSec}`
+    //     // timeDOM.innerHTML = `0${Math.floor(activeTimeSec/60)}:0${activeTimeSec - Math.floor(activeTimeSec/60) * 60}`
+    // } else {
+    //     timeDOM.innerHTML = activeTimeSec;
+    // };
+
+    timeDOM.innerHTML = `${activeTimeMin}:${activeTimeSec}`;
 };

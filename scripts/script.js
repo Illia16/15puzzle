@@ -1,8 +1,7 @@
 import playersStats from './playersStats.js';
 
 // Timer functions
-import { startTimer, stopTimer, timer } from './helpers/timer.js';
-
+import { startTimer, stopTimer, timerInit } from './helpers/timer.js';
 
 const puzzleGame = {};
 
@@ -39,7 +38,7 @@ puzzleGame.startGameBtn.onclick = function(e) {
             movementsMade: puzzleGame.movementsMade,
             time: 222,
         };
-        puzzleGame.timerStart = setInterval(timer, 1000);
+        startTimer();
     };
 };
 
@@ -50,7 +49,5 @@ puzzleGame.makeMove.onclick = function(){
 };
 
 puzzleGame.gameOver.onclick = function(){
-    stopTimer(puzzleGame.timerStart);
+    stopTimer(timerInit);
 };
-
-
