@@ -43,16 +43,20 @@ puzzleGame.startGameBtn.onclick = function(e) {
 
 
 
-
+puzzleGame.activeTime = 0;
 puzzleGame.timer = function() {
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
-    seconds +=1;
-    puzzleGame.timeSpent.innerHTML = seconds;
-    console.log('1 sec');
+    puzzleGame.activeTime +=1;
+    
+    if (puzzleGame.activeTime <= 9) {
+        puzzleGame.timeSpent.innerHTML = '0' + puzzleGame.activeTime;
+    } else if (puzzleGame.activeTime > 60 ) {
+        puzzleGame.timeSpent.innerHTML = `0${Math.floor(puzzleGame.activeTime/60)}:${puzzleGame.activeTime - Math.floor(puzzleGame.activeTime/60) * 60}`
+    } else {
+        puzzleGame.timeSpent.innerHTML = puzzleGame.activeTime;
+    }
+
     !puzzleGame.gameStarted && clearInterval(puzzleGame.timerStart);
-}
+};
 
 
 puzzleGame.makeMove.onclick = function(){
