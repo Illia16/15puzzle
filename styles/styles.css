@@ -274,3 +274,36 @@ body {
 h1 {
   font-size: 5rem;
 }
+
+.gameBoard {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (100px)[4];
+      grid-template-columns: repeat(4, 100px);
+  -ms-grid-rows: (100px)[4];
+      grid-template-rows: repeat(4, 100px);
+  grid-gap: 2px;
+}
+
+.singleCell {
+  font-size: 3.5rem;
+  border: 1px solid #000;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.singleCell:hover {
+  cursor: pointer;
+}
+
+.hole {
+  opacity: 0;
+}

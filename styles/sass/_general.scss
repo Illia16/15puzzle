@@ -24,8 +24,34 @@ body {
     line-height: 1.6;
     font-weight: 400;
     font-family: 'Nunito Sans', sans-serif;
-}
+};
 
 h1 {
     font-size: 5rem;
-}
+};
+
+
+.gameBoard {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    grid-gap: 2px;
+};
+
+.singleCell {
+    font-size: 3.5rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+};
+
+.singleCell:hover {
+    cursor: pointer
+};
+
+.hole {
+    opacity: 0;
+};
