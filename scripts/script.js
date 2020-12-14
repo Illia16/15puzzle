@@ -3,6 +3,10 @@ import playersStats from './playersStats.js';
 // Timer functions
 import { startTimer, stopTimer, timerInit } from './helpers/timer.js';
 
+// Making moves logic
+import './logic/makeMove.js';
+import './logic/gameBoard.js';
+
 const puzzleGame = {};
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -16,11 +20,7 @@ puzzleGame.init = function() {
 
 
 puzzleGame.startGameBtn = document.getElementById('startGame');
-puzzleGame.makeMove = document.getElementById('makeMove');
 puzzleGame.gameOver = document.getElementById('done');
-
-puzzleGame.movesMade = document.getElementById('movesMade');
-
 
 
 puzzleGame.startGameBtn.onclick = function(e) {
@@ -28,25 +28,20 @@ puzzleGame.startGameBtn.onclick = function(e) {
 
     const playerName = document.getElementById('name').value;
 
-    if (!playerName) {
+    if (!playerName || playerName.length > 15) {
         alert('Invalid name');
     } else {
         puzzleGame.playerName = playerName;
-        puzzleGame.movementsMade = 0;
-        playersStats[playerName] = {
-            name: playerName,
-            movementsMade: puzzleGame.movementsMade,
-            time: 222,
-        };
+        // puzzleGame.movementsMade = 0;
+        // playersStats[playerName] = {
+        //     name: playerName,
+        //     movementsMade: puzzleGame.movementsMade,
+        //     time: 222,
+        // };
         startTimer();
     };
 };
 
-
-puzzleGame.makeMove.onclick = function(){
-    puzzleGame.movementsMade +=1;
-    puzzleGame.movesMade.innerHTML = puzzleGame.movementsMade;
-};
 
 puzzleGame.gameOver.onclick = function(){
     stopTimer(timerInit);

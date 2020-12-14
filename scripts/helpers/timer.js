@@ -9,27 +9,21 @@ export function stopTimer(timerVar){
     clearInterval(timerVar);
 };
 
-let activeTimeSec = 57;
-let activeTimeMin = 0;
+let activeTimeSec = 0;
+
 export function timer() {
     activeTimeSec +=1;
-    
-    if (activeTimeSec > 60) {
-        ++activeTimeMin
-        activeTimeSec=0
-    }
-    // if (activeTimeSec <= 9 && activeTimeMin === 0) {
-    //     timeDOM.innerHTML = `00:0${activeTimeSec}`;
-    // } else if (activeTimeSec >=10 && activeTimeSec < 60 && activeTimeMin === 0) {
-    //     timeDOM.innerHTML = `00:${activeTimeSec}`;
-    // } else if (activeTimeSec >= 60) {
-    //     ++activeTimeMin;
-    //     activeTimeSec = 0;
-    //     timeDOM.innerHTML = `0${activeTimeMin}:0${activeTimeSec}`
-    //     // timeDOM.innerHTML = `0${Math.floor(activeTimeSec/60)}:0${activeTimeSec - Math.floor(activeTimeSec/60) * 60}`
-    // } else {
-    //     timeDOM.innerHTML = activeTimeSec;
-    // };
+    getTime(activeTimeSec)
+};
 
-    timeDOM.innerHTML = `${activeTimeMin}:${activeTimeSec}`;
+const getTime = function(currentTime) {
+    let hrs = Math.floor(currentTime/3600);
+    let mins = Math.floor((currentTime - (hrs * 3600)) / 60);
+    let secs = currentTime - (hrs * 3600) - (mins * 60);
+
+    mins < 10 && (mins = "0"+mins)
+    secs < 10 && (secs = "0"+secs)
+
+    timeDOM.innerHTML = mins + ':' + secs;
+    return mins + ':' + secs;
 };
