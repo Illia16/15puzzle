@@ -3,27 +3,19 @@ import playersStats from './playersStats.js';
 // Timer functions
 import { startTimer, stopTimer, timerInit } from './helpers/timer.js';
 
-// Making moves logic
+// Game logic
 import './logic/makeMove.js';
-import './logic/gameBoard.js';
-
-const puzzleGame = {};
-
-document.addEventListener("DOMContentLoaded", function() {
-    puzzleGame.init();
-});
-
-puzzleGame.init = function() {
-    puzzleGame.stats= playersStats;
-    console.log(puzzleGame);
-};
+import { placeCells } from './logic/gameBoard.js';
 
 
-puzzleGame.startGameBtn = document.getElementById('startGame');
-puzzleGame.gameOver = document.getElementById('done');
+const currentPlayerName = (name) => name;
+const stats = playersStats;
 
+// DOM elements
+const startGameDOM = document.getElementById('startGame');
+const gameOverDOM = document.getElementById('done');
 
-puzzleGame.startGameBtn.onclick = function(e) {
+startGameDOM.onclick = function(e) {
     e.preventDefault();
 
     const playerName = document.getElementById('name').value;
@@ -31,18 +23,13 @@ puzzleGame.startGameBtn.onclick = function(e) {
     if (!playerName || playerName.length > 15) {
         alert('Invalid name');
     } else {
-        puzzleGame.playerName = playerName;
-        // puzzleGame.movementsMade = 0;
-        // playersStats[playerName] = {
-        //     name: playerName,
-        //     movementsMade: puzzleGame.movementsMade,
-        //     time: 222,
-        // };
+        placeCells();
+        currentPlayerName(playerName)
         startTimer();
     };
 };
 
 
-puzzleGame.gameOver.onclick = function(){
+gameOverDOM.onclick = function(){
     stopTimer(timerInit);
 };
