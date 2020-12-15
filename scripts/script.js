@@ -1,15 +1,18 @@
+// Stats from Firebase
 import playersStats from './playersStats.js';
 
 // Timer functions
 import { startTimer, stopTimer, timerInit, activeTimeSec } from './helpers/timer.js';
 
 // Game logic
-import { movementsMade } from './logic/makeMove.js';
+import { movementsMade, makeMove, updateArray} from './logic/makeMove.js';
 import { placeCells } from './logic/gameBoard.js';
 
 // DOM elements
 const startGameDOM = document.getElementById('startGame');
 const gameOverDOM = document.getElementById('done');
+const playerName = document.getElementById('name').value;
+document.querySelector(".gameBoard").addEventListener('click', () => updateArray(cells));
 
 // Game info
 // NEED TO KEEP EVERYTHING HERE: currentPlayerName, activeTimeSec, movementsMade to later push into Firebase once game is over.
@@ -21,8 +24,6 @@ let finalMovementsCount = (movementsCount) => movementsCount;
 
 startGameDOM.onclick = function(e) {
     e.preventDefault();
-
-    const playerName = document.getElementById('name').value;
 
     if (!playerName || playerName.length > 15) {
         alert('Invalid name');

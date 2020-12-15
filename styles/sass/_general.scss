@@ -48,6 +48,10 @@ h1 {
     align-items: center;
 };
 
+.singleCell:not(.hole) {
+    transition: all .2s;
+};
+
 .singleCell:hover {
     cursor: pointer
 };
