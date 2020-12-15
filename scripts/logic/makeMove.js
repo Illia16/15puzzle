@@ -36,6 +36,12 @@ export function updateArray(arr){
     const zero = parseInt(holeCell.innerHTML);
     const clickedEl = parseInt(clickedCell.innerHTML);
 
+    // console.log(zero, '0');
+    // console.log(clickedEl, 'clickedEl');
+
+    // console.log(holeCell , '0 global');
+    // console.log(clickedCell, 'clickedEl global');
+
     arr[arr.indexOf(clickedEl)] = zero;
     arr[arr.indexOf(zero)] = clickedEl;
 

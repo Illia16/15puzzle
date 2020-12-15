@@ -24,12 +24,12 @@ let finalMovementsCount = (movementsCount) => movementsCount;
 
 startGameDOM.onclick = function(e) {
     e.preventDefault();
-
+    
     if (!playerName || playerName.length > 15) {
         alert('Invalid name');
     } else {
+        currentPlayerName(playerName);
         placeCells(cells);
-        currentPlayerName(playerName)
         startTimer();
     };
 };
