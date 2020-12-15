@@ -15,6 +15,10 @@ export function makeMove(e){
 };
 
 function updateDOM(clickedEl, zeroEl){
+    // if (clickedEl === zeroEl){
+    //     return
+    // };
+
     // Replacing 0 cell with clicked cell
     zeroEl.innerHTML = clickedEl.innerHTML;
     zeroEl.classList.remove('hole');
@@ -25,6 +29,9 @@ function updateDOM(clickedEl, zeroEl){
 };
 
 export function updateArray(arr){
+    // if (clickedCell.innerHTML === holeCell.innerHTML) {
+    //     return
+    // };
 
     const zero = parseInt(holeCell.innerHTML);
     const clickedEl = parseInt(clickedCell.innerHTML);
@@ -32,5 +39,17 @@ export function updateArray(arr){
     arr[arr.indexOf(clickedEl)] = zero;
     arr[arr.indexOf(zero)] = clickedEl;
 
+    compareArrays(arr);
     return arr;
+};
+
+
+function compareArrays(array){
+    const finalArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
+    console.log(array);
+
+    const isGameOver = (finalArray.length == array.length) && finalArray.every(function(element, index) {
+    return element === array[index]; 
+    });
+    console.log(isGameOver);
 };
