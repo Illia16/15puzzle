@@ -1,7 +1,7 @@
 import playersStats from './playersStats.js';
 
 // Timer functions
-import { startTimer, stopTimer, timerInit } from './helpers/timer.js';
+import { startTimer, stopTimer, timerInit, activeTimeSec } from './helpers/timer.js';
 
 // Game logic
 import { movementsMade } from './logic/makeMove.js';
@@ -15,9 +15,9 @@ const gameOverDOM = document.getElementById('done');
 // NEED TO KEEP EVERYTHING HERE: currentPlayerName, activeTimeSec, movementsMade to later push into Firebase once game is over.
 const stats = playersStats;
 const currentPlayerName = (name) => name;
-let totalMovementsMade = movementsMade;
 const cells = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].sort( () => Math.random()-0.5).concat(0);
-
+let finalTime = (timeFinal) => timeFinal;
+let finalMovementsCount = (movementsCount) => movementsCount;
 
 startGameDOM.onclick = function(e) {
     e.preventDefault();
@@ -36,4 +36,6 @@ startGameDOM.onclick = function(e) {
 
 gameOverDOM.onclick = function(){
     stopTimer(timerInit);
+    finalTime(activeTimeSec);
+    finalMovementsCount(movementsMade);
 };
