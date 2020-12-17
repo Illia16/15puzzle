@@ -1,58 +1,28 @@
-const movesMadeDOM = document.getElementById('movesMade');
-document.querySelector(".gameBoard").addEventListener('click', makeMove);
-
-export let movementsMade = 0;
-let holeCell, clickedCell;
-
-export function makeMove(e){
-    holeCell = document.querySelector('.hole');
-    clickedCell = e.target;
-
-    movementsMade +=1;
-    movesMadeDOM.innerHTML = `Moves made: ${movementsMade}`;
-
-    updateDOM(clickedCell, holeCell);
-};
-
-function updateDOM(clickedEl, zeroEl){
-    // if (clickedEl === zeroEl){
-    //     return
-    // };
-
+export function updateDOM(clickedCell, holeCell){
     // Replacing 0 cell with clicked cell
-    zeroEl.innerHTML = clickedEl.innerHTML;
-    zeroEl.classList.remove('hole');
+    holeCell.innerHTML = clickedCell.innerHTML;
+    holeCell.classList.remove('hole');
 
     // Replacing clicked cell with 0 cell
-    clickedEl.innerHTML = 0;
-    clickedEl.classList.add('singleCell', 'hole');
+    clickedCell.innerHTML = 0;
+    clickedCell.classList.add('singleCell', 'hole');
 };
 
-export function updateArray(arr){
-    // if (clickedCell.innerHTML === holeCell.innerHTML) {
-    //     return
-    // };
-
+export function updateArray(arr, clickedCell, holeCell){
     const zero = parseInt(holeCell.innerHTML);
     const clickedEl = parseInt(clickedCell.innerHTML);
+    const zeroIndex = arr.indexOf(zero);
+    const clickedElIndex = arr.indexOf(clickedEl);
 
-    // console.log(zero, '0');
-    // console.log(clickedEl, 'clickedEl');
+    arr[clickedElIndex] = zero;
+    arr[zeroIndex] = clickedEl;
 
-    // console.log(holeCell , '0 global');
-    // console.log(clickedCell, 'clickedEl global');
-
-    arr[arr.indexOf(clickedEl)] = zero;
-    arr[arr.indexOf(zero)] = clickedEl;
-
-    compareArrays(arr);
     return arr;
 };
 
 
-function compareArrays(array){
+export function compareArrays(array){
     const finalArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
-    console.log(array);
 
     const isGameOver = (finalArray.length == array.length) && finalArray.every(function(element, index) {
     return element === array[index]; 
