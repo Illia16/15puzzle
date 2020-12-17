@@ -2,10 +2,13 @@
 import playersStats from './playersStats.js';
 
 // Timer functions
-import { startTimer, stopTimer, timerInit, activeTimeSec } from './helpers/timer.js';
+import { startTimer, stopTimer, timerInit, activeTimeSec, getTime } from './helpers/timer.js';
 
 // Check name
 import { checkName } from './helpers/checkName.js';
+
+// Record final time
+import { recordFinalTime } from './helpers/recordFinalTime.js';
 
 // Game logic
 import { updateArray, updateDOM, compareArrays} from './logic/makeMove.js';
@@ -13,7 +16,6 @@ import { placeCells } from './logic/gameBoard.js';
 
 // DOM elements
 const startGameDOM = document.getElementById('startGame');
-const gameOverDOM = document.getElementById('done');
 const playerName = document.getElementById('name');
 document.querySelector(".gameBoard").addEventListener('click', makeMove);
 const movesMadeDOM = document.getElementById('movesMade');
@@ -25,8 +27,7 @@ const stats = playersStats;
 let currentPlayerName;
 let movementsMade = 0;
 const cells = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].sort( () => Math.random()-0.5).concat(0);
-let finalTime = (timeFinal) => timeFinal;
-let finalMovementsCount = (movementsCount) => movementsCount;
+let finalTime;
 
 startGameDOM.onclick = function(e) {
     e.preventDefault();
@@ -49,12 +50,14 @@ function makeMove(e){
 
     updateArray(cells, clickedCell, holeCell);
     updateDOM(clickedCell, holeCell);
-    console.log(cells);
+    if (compareArrays(cells)) {
+        gameOver();
+    };
 };
 
 
-gameOverDOM.onclick = function(){
+const gameOver = function(){
     stopTimer(timerInit);
-    finalTime(activeTimeSec);
-    finalMovementsCount(movementsMade);
+    finalTime = recordFinalTime(activeTimeSec);
+    alert(`You won. Movements: ${movementsMade}. Time: ${getTime(activeTimeSec)} `);
 };

@@ -16,7 +16,7 @@ export function timer() {
     getTime(activeTimeSec);
 };
 
-const getTime = function(currentTime) {
+export const getTime = function(currentTime) {
     let hrs = Math.floor(currentTime/3600);
     let mins = Math.floor((currentTime - (hrs * 3600)) / 60);
     let secs = currentTime - (hrs * 3600) - (mins * 60);

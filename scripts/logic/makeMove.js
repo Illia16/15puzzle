@@ -24,8 +24,8 @@ export function updateArray(arr, clickedCell, holeCell){
 export function compareArrays(array){
     const finalArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
 
-    const isGameOver = (finalArray.length == array.length) && finalArray.every(function(element, index) {
-    return element === array[index]; 
+    const isGameOver = (finalArray.length == array.length) && finalArray.every(function(el, index) {
+        return el === array[index];
     });
-    console.log(isGameOver);
+    return isGameOver;
 };
