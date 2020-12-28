@@ -1,6 +1,4 @@
-const gameBoard = document.querySelector(".gameBoard");
-
-export function placeCells(array){
+export function placeCells(array, boardDom){
 
     for (let i=0; i<16; i++) {
         const cell = document.createElement('div');
@@ -12,6 +10,6 @@ export function placeCells(array){
         }
         
         cell.innerHTML = array[i];
-        gameBoard.append(cell);
+        boardDom.append(cell);
     };
 };

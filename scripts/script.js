@@ -2,25 +2,26 @@
 import playersStats from './playersStats.js';
 
 // Timer functions
-import { startTimer, stopTimer, timerInit, activeTimeSec, getTime } from './helpers/timer.js';
-
-// Check name
-import { checkName } from './helpers/checkName.js';
-import { showPlayerName } from './helpers/DomManipulation/displayName.js';
-
-// Record final time
-import { recordFinalTime } from './helpers/recordFinalTime.js';
+import { startTimer, stopTimer, timerInit, activeTimeSec, getTime } from './helpers/Timer/timer.js';
+import { recordFinalTime } from './helpers/Timer/recordFinalTime.js';
 
 // Game logic
 import { updateArray, updateDOM, compareArrays} from './logic/makeMove.js';
 import { placeCells } from './logic/gameBoard.js';
+
+// Display elements on DOM
+import { showPlayerName } from './helpers/DomManipulation/displayName.js';
+import { showHideEl } from './helpers/DomManipulation/showHideElementDom.js';
 
 // DOM elements
 const startGameDOM = document.getElementById('startGame');
 const playerName = document.getElementById('name');
 document.querySelector(".gameBoard").addEventListener('click', makeMove);
 const movesMadeDOM = document.getElementById('movesMade');
+const playerGameInfo = document.getElementById('playerGameInfo');
+const gameBoard = document.querySelector(".gameBoard");
 
+console.log(gameBoard.parentElement);
 
 // Game info
 // NEED TO KEEP EVERYTHING HERE: currentPlayerName, activeTimeSec, movementsMade to later push into Firebase once game is over.
@@ -33,12 +34,14 @@ let finalTime;
 startGameDOM.onclick = function(e) {
     e.preventDefault();
     
-    if (!checkName(playerName.value) || !isNaN(checkName(playerName.value)) ) {
+    if ( !playerName.value || !isNaN(playerName.value) ) {
         alert('Invalid name');
     } else {
-        currentPlayerName = checkName(playerName.value);
+        showHideEl(playerGameInfo);
+        showHideEl(gameBoard.parentElement);
+        currentPlayerName = playerName.value;
         showPlayerName(currentPlayerName);
-        placeCells(cells);
+        placeCells(cells, gameBoard);
         startTimer();
     };
 };
@@ -62,4 +65,11 @@ const gameOver = function(){
     stopTimer(timerInit);
     finalTime = recordFinalTime(activeTimeSec);
     alert(`You won. Movements: ${movementsMade}. Time: ${getTime(activeTimeSec)} `);
+
+    showHideEl(gameBoard.parentElement);
 };
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     return null
+// });
