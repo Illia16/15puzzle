@@ -14,14 +14,14 @@ import { showPlayerName } from './helpers/DomManipulation/displayName.js';
 import { showHideEl } from './helpers/DomManipulation/showHideElementDom.js';
 
 // DOM elements
+const form = document.getElementById('playerInputs');
 const startGameDOM = document.getElementById('startGame');
+const restartGameDOM = document.getElementById('restart');
 const playerName = document.getElementById('name');
 document.querySelector(".gameBoard").addEventListener('click', makeMove);
 const movesMadeDOM = document.getElementById('movesMade');
 const playerGameInfo = document.getElementById('playerGameInfo');
 const gameBoard = document.querySelector(".gameBoard");
-
-console.log(gameBoard.parentElement);
 
 // Game info
 // NEED TO KEEP EVERYTHING HERE: currentPlayerName, activeTimeSec, movementsMade to later push into Firebase once game is over.
@@ -37,6 +37,7 @@ startGameDOM.onclick = function(e) {
     if ( !playerName.value || !isNaN(playerName.value) ) {
         alert('Invalid name');
     } else {
+        showHideEl(form);
         showHideEl(playerGameInfo);
         showHideEl(gameBoard.parentElement);
         currentPlayerName = playerName.value;
@@ -60,13 +61,19 @@ function makeMove(e){
     };
 };
 
-
 const gameOver = function(){
     stopTimer(timerInit);
     finalTime = recordFinalTime(activeTimeSec);
     alert(`You won. Movements: ${movementsMade}. Time: ${getTime(activeTimeSec)} `);
 
     showHideEl(gameBoard.parentElement);
+    showHideEl(restartGameDOM.parentElement);
+};
+
+restartGameDOM.onclick = function(){
+    showHideEl(form);
+    showHideEl(playerGameInfo);
+    showHideEl(restartGameDOM.parentElement);
 };
 
 
