@@ -312,3 +312,11 @@ h1 {
 .hole {
   opacity: 0;
 }
+
+.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}

@@ -6,6 +6,7 @@ import { startTimer, stopTimer, timerInit, activeTimeSec, getTime } from './help
 
 // Check name
 import { checkName } from './helpers/checkName.js';
+import { showPlayerName } from './helpers/DomManipulation/displayName.js';
 
 // Record final time
 import { recordFinalTime } from './helpers/recordFinalTime.js';
@@ -36,6 +37,7 @@ startGameDOM.onclick = function(e) {
         alert('Invalid name');
     } else {
         currentPlayerName = checkName(playerName.value);
+        showPlayerName(currentPlayerName);
         placeCells(cells);
         startTimer();
     };
