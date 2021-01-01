@@ -29,3 +29,11 @@ export function compareArrays(array){
     });
     return isGameOver;
 };
+
+const movementsMade = (count = 0) => {
+    return function() {
+        return ++count
+    };
+};
+
+export const addOneMove = movementsMade();

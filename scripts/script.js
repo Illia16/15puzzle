@@ -6,7 +6,7 @@ import { startTimer, stopTimer, timerInit, getTime, currentTimeSeconds } from '.
 import { recordFinalTime } from './helpers/Timer/recordFinalTime.js';
 
 // Game logic
-import { updateArray, updateDOM, compareArrays} from './logic/makeMove.js';
+import { updateArray, updateDOM, compareArrays, addOneMove} from './logic/makeMove.js';
 import { placeCells } from './logic/gameBoard.js';
 
 // Display elements on DOM
@@ -27,9 +27,9 @@ const gameBoard = document.querySelector(".gameBoard");
 // NEED TO KEEP EVERYTHING HERE: currentPlayerName, activeTimeSec, movementsMade to later push into Firebase once game is over.
 const stats = playersStats;
 let currentPlayerName;
-let movementsMade = 0;
 const cells = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15].sort( () => Math.random()-0.5).concat(0);
 let finalTime;
+
 
 startGameDOM.onclick = function(e) {
     e.preventDefault();
@@ -51,8 +51,7 @@ function makeMove(e){
     const holeCell = document.querySelector('.hole');
     const clickedCell = e.target;
 
-    movementsMade +=1;
-    movesMadeDOM.innerHTML = `Moves made: ${movementsMade}`;
+    movesMadeDOM.innerHTML = `Moves made: ${addOneMove()}`;
 
     updateArray(cells, clickedCell, holeCell);
     updateDOM(clickedCell, holeCell);
@@ -64,7 +63,7 @@ function makeMove(e){
 const gameOver = function(){
     stopTimer(timerInit);
     finalTime = recordFinalTime(currentTimeSeconds(false));
-    alert(`You won. Movements: ${movementsMade}. Time: ${getTime(currentTimeSeconds(false))} `);
+    alert(`You won. Movements: ${addOneMove()-1}. Time: ${getTime(currentTimeSeconds(false))} `);
 
     showHideEl(gameBoard.parentElement);
     showHideEl(restartGameDOM.parentElement);
