@@ -2,7 +2,7 @@
 import playersStats from './playersStats.js';
 
 // Timer functions
-import { startTimer, stopTimer, timerInit, activeTimeSec, getTime } from './helpers/Timer/timer.js';
+import { startTimer, stopTimer, timerInit, getTime, currentTimeSeconds } from './helpers/Timer/timer.js';
 import { recordFinalTime } from './helpers/Timer/recordFinalTime.js';
 
 // Game logic
@@ -63,8 +63,8 @@ function makeMove(e){
 
 const gameOver = function(){
     stopTimer(timerInit);
-    finalTime = recordFinalTime(activeTimeSec);
-    alert(`You won. Movements: ${movementsMade}. Time: ${getTime(activeTimeSec)} `);
+    finalTime = recordFinalTime(currentTimeSeconds(false));
+    alert(`You won. Movements: ${movementsMade}. Time: ${getTime(currentTimeSeconds(false))} `);
 
     showHideEl(gameBoard.parentElement);
     showHideEl(restartGameDOM.parentElement);

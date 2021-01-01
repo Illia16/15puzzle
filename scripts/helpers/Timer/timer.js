@@ -9,11 +9,22 @@ export function stopTimer(timerVar){
     clearInterval(timerVar);
 };
 
-export let activeTimeSec = 0;
+const secondsCount = function() {
+    let seconds = 0;
+
+    return function(param){
+        if (!param) {
+            return seconds;
+        } else {
+            return ++seconds;
+        };
+    };
+};
+
+export const currentTimeSeconds = secondsCount();
 
 export function timer() {
-    activeTimeSec +=1;
-    getTime(activeTimeSec);
+    getTime(currentTimeSeconds(true));
 };
 
 export const getTime = function(currentTime) {
