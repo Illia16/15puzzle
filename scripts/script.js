@@ -51,12 +51,16 @@ function makeMove(e){
     const holeCell = document.querySelector('.hole');
     const clickedCell = e.target;
 
-    movesMadeDOM.innerHTML = `Moves made: ${addOneMove()}`;
-
-    updateArray(cells, clickedCell, holeCell);
-    updateDOM(clickedCell, holeCell);
-    if (compareArrays(cells)) {
-        gameOver();
+    if ( clickedCell.classList.contains('singleCell') && !clickedCell.classList.contains('hole') ) {
+        console.log('runs', clickedCell.classList);
+        movesMadeDOM.innerHTML = `Moves made: ${addOneMove()}`;
+        updateArray(cells, clickedCell, holeCell);
+        updateDOM(clickedCell, holeCell);
+        if (compareArrays(cells)) {
+            gameOver();
+        };
+    } else {
+        return
     };
 };
 
