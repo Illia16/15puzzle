@@ -1,1 +1,0 @@
-export const recordFinalTime = (timeFinal) => timeFinal;
