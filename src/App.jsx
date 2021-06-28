@@ -4,18 +4,26 @@ import './styles/index.scss';
 
 function App() {
   const [playersData, setPlayersData] = useState(null);
-  
-  useEffect(()=> {
-      try {
-        fetch("API URL HERE")
-        .then(res => res.json())
-        .then(data => {
-          setPlayersData(data)
-        })
-      } catch (er) {
-        console.error(er);
-      }
-  },[])
+
+    useEffect(()=> {
+        try {
+          fetch("***********",
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "x-api-key": import.meta.env.VITE_API_KEY,
+              }
+            }
+          )
+          .then(res => res.json())
+          .then(data => {
+            setPlayersData(data)
+            console.log(data);
+          })
+        } catch (er) {
+          console.error(er);
+        }
+    },[])
 
 
   return (
