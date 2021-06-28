@@ -16,7 +16,6 @@
     "url": "git+https://github.com/Illia16/15puzzle.git"
   },
   "dependencies": {
-    "@craco/craco": "^6.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -39,11 +38,13 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^6.1.2",
     "@vitejs/plugin-react-refresh": "^1.3.3",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.36",
     "sass": "^1.35.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4",
-    "vite": "^2.3.8"
+    "vite": "^2.3.8",
+    "vite-plugin-react": "^4.0.1"
   }
 }
