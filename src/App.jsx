@@ -5,13 +5,13 @@ import './styles/index.scss';
 function App() {
   const [playersData, setPlayersData] = useState(null);
 
+
     useEffect(()=> {
         try {
           fetch("https://xo3o941k2f.execute-api.us-east-2.amazonaws.com/production/game15-api",
             {
               headers: {
-                "Content-Type": "application/json",
-                "x-api-key": import.meta.env.VITE_API_KEY,
+                "x-api-key": import.meta.env.VITE_API_KEY || secret.VITE_API_KEY,
               }
             }
           )
@@ -23,6 +23,23 @@ function App() {
         } catch (er) {
           console.error(er);
         }
+
+        // try {
+        //   fetch("https://xo3o941k2f.execute-api.us-east-2.amazonaws.com/production/game15-api", {
+        //     method: 'POST',
+        //     headers: {
+        //         "x-api-key": import.meta.env.VITE_API_KEY,
+        //     },
+        //     body: JSON.stringify({moves: '1', time: '1', id: '1', name: 'Illia'}),
+        //   })
+        //   .then(res => res.json())
+        //   .then(data => {
+        //     setPlayersData(data)
+        //     console.log(data);
+        //   })
+        // } catch (er) {
+        //   console.error(er);
+        // }
     },[])
 
 
