@@ -3,5 +3,18 @@
 @import "tailwindcss/utilities";
 
 h1 {
-    color: blue;
+    color: black;
+}
+
+.userName {
+    @apply my-3 mx-2 flex flex-wrap gap-4;
+
+    input {
+        @apply inline-block; 
+        border: 1px solid black;
+    }
+
+    button {
+        @apply inline-block bg-black text-white min-w-[100px];
+    }
 }
