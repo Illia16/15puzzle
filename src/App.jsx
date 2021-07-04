@@ -24,21 +24,37 @@ function App() {
   };
 
   const makeMove = (e) => {
-    setMoves(playerMoves+1);
-    console.log(e.target.parentNode);
-    const clickedCell = Number(e.target.value)
-    const indexClickedCell = allCells.indexOf(clickedCell);
-    const indexHole = allCells.indexOf(0);
-    console.log(indexClickedCell);
-    console.log(indexHole);
+    const holePosition = document.querySelector('.hole').className.split(" ")[2];
+    const clickedCellPostion = e.target.className.split(" ")[2];
 
-    const newArr = [...allCells];
-    newArr[indexClickedCell] = 0;
-    newArr[indexHole] = clickedCell;
-    setAllCells(newArr)
-    console.log(newArr);
+    const mapHole = new Map([ [holePosition[0], holePosition[1]], [holePosition[2], holePosition[3]] ]);
+    const holePositionData = Object.fromEntries(mapHole);
+    console.log('holePositionData', holePositionData);
 
 
+    const mapClickedCell = new Map([ [clickedCellPostion[0], clickedCellPostion[1]], [clickedCellPostion[2], clickedCellPostion[3]] ]);
+    const clickedCellPositionData = Object.fromEntries(mapClickedCell);
+    console.log('clickedCellPositionData', clickedCellPositionData);
+
+
+    // console.log('holePosition', holePosition[0], holePosition[1], holePosition[2], holePosition[3] );
+    // console.log('clickedCellPostion', clickedCellPostion);
+
+    if (clickedCellPositionData.x-holePositionData.x<=1 && clickedCellPositionData.y-holePositionData.y===0 || clickedCellPositionData.x-holePositionData.x===0 && clickedCellPositionData.y-holePositionData.y<=1) {
+      // if it's movable
+      const clickedCell = Number(e.target.value)
+      const indexClickedCell = allCells.indexOf(clickedCell);
+      const indexHole = allCells.indexOf(0);
+      console.log(indexClickedCell);
+      console.log(indexHole);
+      
+      const newArr = [...allCells];
+      newArr[indexClickedCell] = 0;
+      newArr[indexHole] = clickedCell;
+      setAllCells(newArr)
+      setMoves(playerMoves+1);
+      console.log(newArr);
+    }
   };
 
   const startTimer = () => {
@@ -100,7 +116,7 @@ function App() {
           <div>Time: {playerTime}</div>
           <div>Moves made: {playerMoves}</div>
           <div className="gameBoard">
-            {allCells.map((cell)=><Button cell={cell} key={`cell${cell}`} value={cell} functionHandler={(e)=>makeMove(e)} cellClass='additionalClass'></Button>)}
+            {allCells.map((cell, i)=><Button cell={cell} key={`cell${cell}`} value={cell} functionHandler={(e)=>makeMove(e)} cellClass={i}></Button>)}
           </div>
         </div>
     </div>
