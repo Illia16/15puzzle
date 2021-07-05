@@ -46,13 +46,11 @@ function App() {
     // console.log('clickedCellPositionData', clickedCellPositionData);
 
 
-    // if (checkIfCellMovable(clickedCellPositionData, holePositionData)) {
+    if (checkIfCellMovable(clickedCellPositionData, holePositionData)) {
       setMoves(playerMoves+1)
       const clickedCell = Number(e.target.value)
       const indexClickedCell = allCells.indexOf(clickedCell);
       const indexHole = allCells.indexOf(0);
-      // console.log(indexClickedCell);
-      // console.log(indexHole);
       
       const newArr = [...allCells];
       newArr[indexClickedCell] = 0;
@@ -65,7 +63,7 @@ function App() {
         setResults(true)
         postData()
       }
-    // }
+    }
   };
 
   const startTimer = () => {
