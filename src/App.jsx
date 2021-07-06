@@ -10,11 +10,14 @@ import uniqid from 'uniqid';
 
 function App() {
   const [playersData, setPlayersData] = useState();
-  // [{name: 'Illia', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
+  // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}];
     
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(null);
+
   const [results, setResults] = useState(false);
   const [playerName, setPlayerName] = useState("");
+  const [playerId, setPlayerId] = useState("");
   const [playerMoves, setMoves] = useState(0);
   const [playerTime, setTime] = useState(0);
   const timer = useRef(null);
@@ -22,8 +25,15 @@ function App() {
   const [allCells, setAllCells] = useState([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
 
   const startGame = () => {
+    const existingPlayer = playersData.find(player => player.name === playerName);
     if (playerName) {
       setGameStarted(true);
+      setGameOver(false)
+      if(existingPlayer.name !== playerName){
+        setPlayerId(uniqid('game-15-player-'));
+      } else {
+        setPlayerId(existingPlayer.id)
+      }
       setResults(false);
       setMoves(0);
       endTimer();
@@ -58,13 +68,19 @@ function App() {
       setAllCells(newArr);
 
       if (checkIfGameOver(newArr)) {
-        endTimer()
-        setGameStarted(false)
-        setResults(true)
-        postData()
+        setGameOver(true)
       }
     }
   };
+
+  useEffect(()=>{
+    if (gameOver){
+      endTimer()
+      setGameStarted(false)
+      setResults(true)
+      postData()
+    }
+  },[gameOver])
 
   const startTimer = () => {
     timer.current = setInterval(() => {
@@ -83,12 +99,11 @@ function App() {
         headers: {
             "x-api-key": process.env.REACT_APP_API_KEY || secret.VITE_API_KEY,
         },
-        body: JSON.stringify({moves: String(playerMoves+1), time: String(playerTime), id: uniqid('game-15-player-'), name: playerName}),
+        body: JSON.stringify({moves: String(playerMoves), time: String(playerTime), id: playerId, name: playerName}),
       })
       .then(res => res.json())
       .then(data => {
         setPlayersData(data)
-        console.log('new data', data);
       })
     } catch (er) {
       console.error(er);
@@ -107,7 +122,6 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setPlayersData(data)
-        console.log('data', data);
       })
     } catch (er) {
       console.error(er);
