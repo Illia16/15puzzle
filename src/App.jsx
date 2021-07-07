@@ -29,7 +29,7 @@ function App() {
     if (playerName) {
       setGameStarted(true);
       setGameOver(false)
-      if(existingPlayer.name !== playerName){
+      if(!existingPlayer){
         setPlayerId(uniqid('game-15-player-'));
       } else {
         setPlayerId(existingPlayer.id)
@@ -122,6 +122,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setPlayersData(data)
+        console.log(playersData);
       })
     } catch (er) {
       console.error(er);
