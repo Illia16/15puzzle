@@ -9,8 +9,10 @@ import convertTime from './components/convertTime';
 import uniqid from 'uniqid';
 
 function App() {
-  const [playersData, setPlayersData] = useState();
-  // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}];
+  const [playersData, setPlayersData] = useState(
+
+    [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
+    );
     
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(null);
@@ -122,7 +124,6 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setPlayersData(data)
-        console.log(playersData);
       })
     } catch (er) {
       console.error(er);
