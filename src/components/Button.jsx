@@ -6,38 +6,63 @@ const Button = ({cell, functionHandler, value, cellClass}) => {
 
     const keyBoardSupport = (e) => {
         const pickedCellPostion = e.target.className.split(" ")[2];
-        const positionX = pickedCellPostion[1];
-        const positionY = pickedCellPostion[3];
+        const positionX = Number(pickedCellPostion[1]);
+        const positionY = Number(pickedCellPostion[3]);
 
+        const holePosition = document.querySelector('.hole').className.split(" ")[2];
+        const holePosX = Number(holePosition[1]);
+        const holePosY = Number(holePosition[3]);
+        console.log(positionX);
+        
         // left arrow press
         if (e.keyCode === 37){
             if (positionX <=4 && positionX > 1){
-                document.activeElement.blur()
-                document.querySelector(`.x${positionX-1}y${positionY}`).focus();
+                if (holePosY !== positionY || positionX-holePosX !== 1){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX-1}y${positionY}`).focus();
+                } else if (positionX !== 2) {
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX-2}y${positionY}`).focus();
+                }
             }
         }
         
         // right arrow press
         if (e.keyCode === 39){
             if (positionX < 4 && positionX >= 1){
-                document.activeElement.blur()
-                document.querySelector(`.x${Number(positionX)+1}y${positionY}`).focus();
+                if (holePosY !== positionY || holePosX-positionX !== 1){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX+1}y${positionY}`).focus();
+                } else if (positionX !== 3){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX+2}y${positionY}`).focus();
+                }
             }
         }
 
         // up arrow press
         if (e.keyCode === 38){
             if (positionY <=4 && positionY > 1){
-                document.activeElement.blur()
-                document.querySelector(`.x${positionX}y${positionY-1}`).focus();
+                if (holePosX !== positionX || positionY-holePosY !== 1){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX}y${positionY-1}`).focus();
+                } else if (positionY !== 2){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX}y${positionY-2}`).focus();
+                }
             }
         }
 
         // down arrow press
         if (e.keyCode === 40){
             if (positionY < 4 && positionY >= 1){
-                document.activeElement.blur()
-                document.querySelector(`.x${positionX}y${Number(positionY)+1}`).focus();
+                if (holePosX !== positionX || holePosY-positionY !== 1){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX}y${positionY+1}`).focus();
+                } else if (positionY !== 3){
+                    document.activeElement.blur()
+                    document.querySelector(`.x${positionX}y${positionY+2}`).focus();
+                }
             }
         }
     }
