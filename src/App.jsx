@@ -10,7 +10,7 @@ import uniqid from 'uniqid';
 
 function App() {
   const [playersData, setPlayersData] = useState();
-    // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
+  // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
     
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(null);
@@ -54,7 +54,6 @@ function App() {
     const mapClickedCell = new Map([ [clickedCellPostion[0], clickedCellPostion[1]], [clickedCellPostion[2], clickedCellPostion[3]] ]);
     const clickedCellPositionData = Object.fromEntries(mapClickedCell);
     // console.log('clickedCellPositionData', clickedCellPositionData);
-
 
     if (checkIfCellMovable(clickedCellPositionData, holePositionData)) {
       setMoves(playerMoves+1)
