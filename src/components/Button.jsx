@@ -12,7 +12,6 @@ const Button = ({cell, functionHandler, value, cellClass}) => {
         const holePosition = document.querySelector('.hole').className.split(" ")[2];
         const holePosX = Number(holePosition[1]);
         const holePosY = Number(holePosition[3]);
-        console.log(positionX);
         
         // left arrow press
         if (e.keyCode === 37){
