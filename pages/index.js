@@ -172,7 +172,7 @@ export default function Home({data}) {
 
           {results &&
             <div className="py-4">
-              <p className="py-2">Here's {playerName} game results:</p>
+              <p className="py-2">Here is {playerName} game results:</p>
               <ul className="py-2">
                 <li>Moves made: {playerMoves}</li>
                 <li>Time: {convertTime(playerTime)}</li>
