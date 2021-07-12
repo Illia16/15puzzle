@@ -7,9 +7,6 @@ import convertTime from '../utils/convertTime';
 import uniqid from 'uniqid';
 
 export default function Home({data}) {
-  console.log(data);
-  console.log('process#1', process.env.NEXT_PUBLIC_GAME15_API_KEY);
-
   const [playersData, setPlayersData] = useState();
   // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
     
@@ -94,15 +91,13 @@ export default function Home({data}) {
 
   const postData = () => {
     try {
-      fetch("https://xo3o941k2f.execute-api.us-east-2.amazonaws.com/production/game15-api", {
+      fetch("/api/leaderboard-post", {
         method: 'POST',
-        headers: {
-          "x-api-key": process.env.NEXT_PUBLIC_GAME15_API_KEY,
-        },
-        body: JSON.stringify({moves: String(playerMoves), time: String(playerTime), id: playerId, name: playerName}),
+        body: JSON.stringify({moves: String(playerMoves), time: String(playerTime), id: playerId, name: playerName})
       })
       .then(res => res.json())
       .then(data => {
+        console.log('data from post',data);
         setPlayersData(data)
       })
     } catch (er) {
@@ -111,7 +106,22 @@ export default function Home({data}) {
   }
   
   useEffect(() => {
-    setPlayersData(data)
+    const fetchData = async () => {
+      try {
+        await fetch("/api/leaderboard", {
+          method: 'GET',
+        })
+        .then(res => res.json())
+        .then(data => {
+          console.log('data',data);
+          setPlayersData(data)
+        })
+      } catch (er) {
+        console.error(er);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (
@@ -184,11 +194,11 @@ export default function Home({data}) {
   )
 }
 
-export async function getStaticProps(context){
-  const res = await fetch(`http://localhost:3000/api/apiCall/`);
-  const data = await res.json();
+// export async function getStaticProps(context){
+//   const res = await fetch(`http://localhost:3000/api/apiCall/`);
+//   const data = await res.json();
 
-  return {
-    props: {data}
-  }
-}
+//   return {
+//     props: {data}
+//   }
+// }
