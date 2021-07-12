@@ -1,0 +1,64 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+h2 {
+    @apply py-4 text-3xl md:text-4xl;
+}
+
+.userName {
+    @apply my-0 py-4 mx-auto flex flex-col justify-center items-stretch gap-4 max-w-xs;
+
+    input {
+        @apply inline-block p-2 text-center text-lg border-2 border-solid border-black bg-transparent;
+        &:focus {
+            background: #ffda08;
+        }
+    }
+}
+
+button {
+    border: 2px solid transparent;
+    transition: all .3s ease-in;
+    @apply inline-block p-2 uppercase bg-black text-white;
+    &:hover,
+    &:focus {
+        border: 2px solid black;
+        background: #ffda08;
+        color: black;
+    }
+}
+
+.table {
+    @apply flex flex-col max-w-xs py-4;
+
+    table {
+        background: rgb(243, 184, 107);
+        @apply border-2 border-solid border-black;
+
+        td,th {
+            padding: 5px 10px;
+            border: 2px solid black;
+        }
+    }
+}
+
+.gameBoard {
+    @apply grid justify-center py-4 gap-1; 
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(4, 70px);
+        grid-template-rows: repeat(4, 70px);
+    }
+
+    .cell {
+        @apply text-2xl md:text-3xl;
+    }
+
+    .hole {
+        opacity: 0;
+    }
+}
+
