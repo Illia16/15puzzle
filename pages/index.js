@@ -6,7 +6,7 @@ import checkIfCellMovable from '../utils/checkIfCellMovable';
 import convertTime from '../utils/convertTime';
 import uniqid from 'uniqid';
 
-export default function Home({data}) {
+export default function Home() {
   const [playersData, setPlayersData] = useState();
   // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
     
@@ -48,12 +48,10 @@ export default function Home({data}) {
 
     const mapHole = new Map([ [holePosition[0], holePosition[1]], [holePosition[2], holePosition[3]] ]);
     const holePositionData = Object.fromEntries(mapHole);
-    // console.log('holePositionData', holePositionData);
     const mapClickedCell = new Map([ [clickedCellPostion[0], clickedCellPostion[1]], [clickedCellPostion[2], clickedCellPostion[3]] ]);
     const clickedCellPositionData = Object.fromEntries(mapClickedCell);
-    // console.log('clickedCellPositionData', clickedCellPositionData);
 
-    // if (checkIfCellMovable(clickedCellPositionData, holePositionData)) {
+    if (checkIfCellMovable(clickedCellPositionData, holePositionData)) {
       setMoves(playerMoves+1)
       const clickedCell = Number(e.target.value)
       const indexClickedCell = allCells.indexOf(clickedCell);
@@ -67,7 +65,7 @@ export default function Home({data}) {
       if (checkIfGameOver(newArr)) {
         setGameOver(true)
       }
-    // }
+    }
   };
 
   useEffect(()=>{
@@ -193,12 +191,3 @@ export default function Home({data}) {
     </div>
   )
 }
-
-// export async function getStaticProps(context){
-//   const res = await fetch(`http://localhost:3000/api/apiCall/`);
-//   const data = await res.json();
-
-//   return {
-//     props: {data}
-//   }
-// }
