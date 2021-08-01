@@ -1,7 +1,7 @@
 export default async function apiCall(req, res) {
   if (req.method === 'GET'){
     try {
-      await fetch("https://xo3o941k2f.execute-api.us-east-2.amazonaws.com/production/game15-api",
+      await fetch(process.env.API_URL,
         {
           headers: {
             "x-api-key": process.env.API_KEY,
