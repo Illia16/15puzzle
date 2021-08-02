@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({cell, functionHandler, value, cellClass}) => {
+const Button = ({cell, functionHandler, cellClass}) => {
     let cellPosition;
 
     const keyBoardSupport = (e) => {
@@ -11,7 +11,7 @@ const Button = ({cell, functionHandler, value, cellClass}) => {
         const holePosition = document.querySelector('.hole').className.split(" ")[2];
         const holePosX = Number(holePosition[1]);
         const holePosY = Number(holePosition[3]);
-        
+
         // left arrow press
         if (e.keyCode === 37){
             if (positionX <=4 && positionX > 1){
@@ -116,7 +116,20 @@ const Button = ({cell, functionHandler, value, cellClass}) => {
             break;
     }
     return(
-        <button disabled={cell===0} onClick={functionHandler} onKeyDown={keyBoardSupport} value={value} className={`cell ${cell !== 0 ? 'singleCell' : 'hole'} ${cellPosition}`}>{cell}</button>
+        <button 
+            disabled={cell===0}
+            onClick={functionHandler} 
+            onKeyDown={keyBoardSupport} 
+            value={cell} 
+            className={`cell ${cell !== 0 ? 'singleCell' : 'hole'} ${cellPosition}`}
+            >
+                <span className='sr-only'>
+                    {`Current cell\'s position. X axis ${cellPosition[1]}, Y axis ${cellPosition[3]}.
+                    Current hole\'s position. X axis ${document.querySelector('.hole').className.split(" ")[2][1]}, Y axis ${document.querySelector('.hole').className.split(" ")[2][3]}.
+                    This is`}
+                </span>
+                {cell}
+            </button>
     )
 }
 
