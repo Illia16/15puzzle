@@ -125,8 +125,8 @@ const Button = ({cell, functionHandler, cellClass}) => {
             >
                 <span className='sr-only'>
                     {`Current cell\'s position. X axis ${cellPosition[1]}, Y axis ${cellPosition[3]}.
-                    Current hole\'s position. X axis ${document.querySelector('.hole').className.split(" ")[2][1]}, Y axis ${document.querySelector('.hole').className.split(" ")[2][3]}.
                     This is`}
+                    {/*Current hole\'s position. X axis ${document.querySelector('.hole').className.split(" ")[2][1]}, Y axis ${document.querySelector('.hole').className.split(" ")[2][3]}. */}
                 </span>
                 {cell}
             </button>
