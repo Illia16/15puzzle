@@ -31,6 +31,17 @@ export default function Home() {
 
   const startGame = () => {
     const existingPlayer = playersData.find(player => player.name === playerName);
+
+    if (!playerName) {
+      const input = document.querySelector('#playerName')
+      if (input) input.classList.add('invalid-input');
+
+      setTimeout(() => {
+        input.classList.remove('invalid-input');
+      }, 1750);
+      return
+    }
+
     if (playerName) {
       setGameStarted(true);
       setGameOver(false)
