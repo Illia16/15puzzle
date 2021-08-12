@@ -113,7 +113,7 @@ export default function Home() {
       })
       .then(res => res.json())
       .then(data => {
-        console.log('data from post',data);
+        // console.log('data from post',data);
         setPlayersData(data)
       })
     } catch (er) {
@@ -130,7 +130,7 @@ export default function Home() {
         })
         .then(res => res.json())
         .then(data => {
-          console.log('data',data);
+          // console.log('data',data);
           setPlayersData(data)
         })
       } catch (er) {
