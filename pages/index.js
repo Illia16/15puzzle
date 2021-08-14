@@ -188,7 +188,7 @@ export default function Home() {
           }
 
       
-          {playersData && playersData.length ?
+          {playersData && playersData.length && !gameStarted ?
               <div className="table">
                 <h2>Leaderboard</h2>
                 <table>
@@ -242,7 +242,7 @@ export default function Home() {
                   </tbody>
                 </table>
               </div>
-          : <div className="py-4">Loading data...</div>  
+          : !gameStarted ? <div className="py-4">Loading data...</div> : null
           }
 
           {gameStarted &&

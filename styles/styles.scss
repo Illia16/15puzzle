@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "./how-to-play.scss";
+
 h2 {
     @apply py-4 text-3xl md:text-4xl;
 }
@@ -16,7 +18,7 @@ h2 {
         }
 
         &.invalid-input {
-            animation: shake 1s ease-in;        
+            animation: shake 1s ease-in;    
             @keyframes shake {
                 10%, 90% {
                 transform: translate3d(-1px, 0, 0);
@@ -57,17 +59,6 @@ h2 {
         border: 2px solid black;
         background: #ffda08;
         color: black;
-    }
-}
-
-.how-to-play {
-    p {
-        transition: height 0.3s ease-in-out;
-        @apply h-0 bg-yellow-500 overflow-hidden;
-
-        &.active {
-            @apply h-[110px] py-5 px-3;
-        }
     }
 }
 

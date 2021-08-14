@@ -2,7 +2,7 @@ import React from "react";
 
 const Button = ({cell, functionHandler, cellClass}) => {
     let cellPosition;
-
+    console.log('Button!');
     const keyBoardSupport = (e) => {
         const pickedCellPostion = e.target.className.split(" ")[2];
         const positionX = Number(pickedCellPostion[1]);
