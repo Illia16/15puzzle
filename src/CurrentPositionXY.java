@@ -1,4 +1,4 @@
-public class CurrentPositionXYStatic {
+public class CurrentPositionXY {
     public static int[] getXY (int v, int[] arr) {
         int[] position = new int[2];
 

@@ -44,8 +44,8 @@ public class Main {
                 PrintBoard.printArr(arr);
 
 
-                int[] currentPosition = CurrentPositionXYStatic.getXY(Integer.parseInt(input), arr);
-                int[] currentPositionHole = CurrentPositionXYStatic.getXY(0, arr);
+                int[] currentPosition = CurrentPositionXY.getXY(Integer.parseInt(input), arr);
+                int[] currentPositionHole = CurrentPositionXY.getXY(0, arr);
 
                 System.out.println(Arrays.toString(currentPosition));
                 System.out.println(Arrays.toString(currentPositionHole));
