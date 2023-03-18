@@ -1,6 +1,7 @@
-import java.util.*;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     static int[] arr = generateArray();
@@ -38,6 +39,26 @@ public class Main {
 //                1) Check if movable
 //                2) Move if movable, else return
 //                3) Check if game is over
+
+
+//                CurrentPositionXY cp = new CurrentPositionXY(Integer.parseInt(input), arr);
+//                CurrentPositionXY zp = new CurrentPositionXY(Integer.parseInt(input), arr);
+
+//                int positionCurrentX = cp.getX();
+//                int positionCurrentY = cp.getY();
+
+//                System.out.println(positionCurrentX);
+//                System.out.println(positionCurrentY);
+
+                PrintBoard.printArr(arr);
+
+
+                int[] currentPosition = CurrentPositionXYStatic.getXY(Integer.parseInt(input), arr);
+                int[] currentPositionHole = CurrentPositionXYStatic.getXY(0, arr);
+
+                System.out.println(Arrays.toString(currentPosition));
+                System.out.println(Arrays.toString(currentPositionHole));
+
                 getInput();
             } else {
                 System.out.println("Number is not present!");
