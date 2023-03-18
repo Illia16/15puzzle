@@ -23,6 +23,7 @@ public class Main {
             arr[i] = a;
         }
 
+        PrintBoard.printArr(arr);
         return arr;
     }
 
@@ -30,29 +31,31 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         if (scanner.hasNextInt()) {
-            System.out.println("Number");
             String input = scanner.nextLine();
 
             if (checkForNumber(input)) {
-                System.out.println("Number is present!");
+                int num = Integer.parseInt(input);
+                System.out.println("Number is present:");
 //                TO DO:
-//                1) Check if movable
-//                2) Move if movable, else return
+//                1) Check if movable // DONE
+//                2) Move if movable, else return // DONE
 //                3) Check if game is over
 
 
-                PrintBoard.printArr(arr);
-
-
-                int[] currentPosition = CurrentPositionXY.getXY(Integer.parseInt(input), arr);
+                int[] currentPosition = CurrentPositionXY.getXY(num, arr);
                 int[] currentPositionHole = CurrentPositionXY.getXY(0, arr);
 
-                System.out.println(Arrays.toString(currentPosition));
-                System.out.println(Arrays.toString(currentPositionHole));
+                if (checkIfMovable(currentPosition, currentPositionHole)) {
+                    int idxNum = getPositionOfNumber(num, arr);
+                    int idxHole = getPositionOfNumber(0, arr);
+                    arr[idxNum] = 0;
+                    arr[idxHole] = num;
+                    PrintBoard.printArr(arr);
+                }
 
                 getInput();
             } else {
-                System.out.println("Number is not present!");
+                System.out.println("Number is out of range: 1-15");
                 getInput();
             }
         } else {
@@ -63,5 +66,21 @@ public class Main {
 
     public static boolean checkForNumber(String v) {
         return Arrays.stream(arr).anyMatch(i -> i == Integer.parseInt(v));
+    }
+
+    public static boolean checkIfMovable(int[] cell, int[] hole) {
+        return ( (Math.abs(cell[0]-hole[0]) == 1) && cell[1]-hole[1] == 0) || (cell[0]-hole[0]==
+                0 && (Math.abs(cell[1]-hole[1]) ==1) );
+    }
+
+    public static int getPositionOfNumber(int number, int[] arr) {
+        int pos = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == number) {
+                pos = i;
+            }
+        }
+
+        return pos;
     }
 }
