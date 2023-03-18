@@ -41,15 +41,6 @@ public class Main {
 //                3) Check if game is over
 
 
-//                CurrentPositionXY cp = new CurrentPositionXY(Integer.parseInt(input), arr);
-//                CurrentPositionXY zp = new CurrentPositionXY(Integer.parseInt(input), arr);
-
-//                int positionCurrentX = cp.getX();
-//                int positionCurrentY = cp.getY();
-
-//                System.out.println(positionCurrentX);
-//                System.out.println(positionCurrentY);
-
                 PrintBoard.printArr(arr);
 
 
