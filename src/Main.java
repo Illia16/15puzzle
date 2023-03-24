@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -18,7 +19,7 @@ public class Main {
 //                TO DO:
 //                1) Check if movable // DONE
 //                2) Move if movable, else return // DONE
-//                3) Check if game is over
+//                3) Check if game is over // DONE
 
 
                 int[] currentPosition = CurrentPositionXY.getXY(num, data.getData());
@@ -29,6 +30,13 @@ public class Main {
                     int idxHole = getPositionOfNumber(0, data.getData());
                     data.setNumber(num, idxNum, idxHole);
                     PrintBoard.printArr(data.getData());
+                    System.out.println(Arrays.toString(data.getData()));
+                    System.out.println(Arrays.toString(data.getGaveOver()));
+                    if (Arrays.equals(data.getData(), data.getGaveOver())) {
+                        System.out.println("Game over");
+                        System.exit(0);
+                        scanner.close();
+                    }
                 } else {
                     System.out.println("Number is present, but not movable:");
                 }
