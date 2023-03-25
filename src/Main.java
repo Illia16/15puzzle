@@ -1,10 +1,13 @@
+import javax.swing.*;
 import java.util.Scanner;
 import java.util.Arrays;
 
 public class Main {
     static Game data = new Game();
+//    static UI ui = new UI(data);
     public static void main(String[] args) {
-        getInput();
+//        getInput();
+        new UI(data);
     }
 
     public static void getInput() {
@@ -23,10 +26,11 @@ public class Main {
                 if (data.checkIfMovable(currentPosition, currentPositionHole)) {
                     int idxNum = data.getNumberIndex(num, data.getData());
                     int idxHole = data.getNumberIndex(0, data.getData());
+                    System.out.printf("idxNum %s%n", idxNum);
+                    System.out.printf("idxNum %s%n", idxHole);
+
                     data.makeMove(num, idxNum, idxHole);
                     data.printBoard(data.getData());
-                    System.out.println(Arrays.toString(data.getData()));
-                    System.out.println(Arrays.toString(data.getGaveOver()));
                     if (Arrays.equals(data.getData(), data.getGaveOver())) {
                         System.out.println("Game over");
                         System.exit(0);
