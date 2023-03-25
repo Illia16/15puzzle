@@ -19,7 +19,6 @@ public class UI extends JFrame {
             buttons[i] = new JButton(Integer.toString(nums[i]));
             add(buttons[i]);
 
-            System.out.println(nums[i]);
             if (nums[i] == 0) {
                 buttons[i].setVisible(false);
             } else {
@@ -29,28 +28,19 @@ public class UI extends JFrame {
             buttons[i].addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-//                    System.out.println(e);
-//                    System.out.println(e.getSource());
                     JButton clickedButton = (JButton) e.getSource();
                     int clickedNum = Integer.parseInt(clickedButton.getText());
-                    System.out.printf("clickedNum %s%n", clickedNum);
-
                     int[] currentPosition = game.getXYCoordinates(clickedNum, game.getData());
                     int[] currentPositionHole = game.getXYCoordinates(0, game.getData());
-                    System.out.printf("currentPosition %s%n", Arrays.toString(currentPosition));
-                    System.out.printf("currentPositionHole %s%n",  Arrays.toString(currentPositionHole));
 
                     if (game.checkIfMovable(currentPosition, currentPositionHole)) {
                         int idxNum = game.getNumberIndex(clickedNum, game.getData());
                         int idxHole = game.getNumberIndex(0, game.getData());
-                        System.out.printf("idxNum %s%n", idxNum);
-                        System.out.printf("idxNum %s%n", idxHole);
 
                         game.makeMove(clickedNum, idxNum, idxHole);
                         makeMoveUI(idxNum, idxHole);
                         game.printBoard(game.getData());
                         if (Arrays.equals(game.getData(), game.getGaveOver())) {
-                            System.out.println("Game over");
                             showGameOverMsg();
                         }
                     }
@@ -69,7 +59,6 @@ public class UI extends JFrame {
         Container board = getContentPane();
         Component btn1 = board.getComponent(number);
         Component zero = board.getComponent(hole);
-        System.out.println(btn1);
         int btn1Index = board.getComponentZOrder(btn1);
         int holeIndex = board.getComponentZOrder(zero);
         board.setComponentZOrder(btn1, holeIndex);
