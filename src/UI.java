@@ -9,21 +9,39 @@ public class UI extends JFrame {
     private JButton[] buttons = new JButton[16];
 
     public UI() {
+        initUI();
+    }
+
+    public UI(Game game) {
+        this();
+        this.game = game;
+        renderMainMenu();
+        setVisible(true);
+    }
+
+    public void initUI() {
         setTitle("Game 15");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
     }
 
-    public UI(Game game) {
-        this();
-        this.game = game;
-        renderButtons();
-        setLayout(new GridLayout(4, 4));
-        setVisible(true);
+    public void renderMainMenu() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        JLabel label = new JLabel("Enter your name:");
+        JTextField input = new JTextField(30);
+        JButton btn = new JButton("Ok");
+        btn.addActionListener(new StartGame(input));
+        panel.add(label);
+        panel.add(input);
+        panel.add(btn);
+        getContentPane().add(panel);
+        pack();
     }
 
     public void renderButtons() {
+        initUI();
         int[] nums = game.getData();
 
         for (int i = 0; i < nums.length; i++) {
@@ -39,6 +57,8 @@ public class UI extends JFrame {
 
             buttons[i].addActionListener(e -> handleBtnClick(e));
         }
+
+        setLayout(new GridLayout(4, 4));
     }
 
     public void handleBtnClick(ActionEvent e) {
@@ -83,7 +103,7 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Container container = getContentPane();
                 container.removeAll();
-                container.add(new JLabel("Game Over. Congrats!", SwingConstants.CENTER));
+                container.add(new JLabel("Game Over. Congrats, " + game.getUserName(), SwingConstants.CENTER));
                 container.setBackground(Color.ORANGE);
                 container.revalidate();
                 container.repaint();
@@ -91,5 +111,24 @@ public class UI extends JFrame {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+
+    public class StartGame implements ActionListener {
+        private JTextField userNameInput;
+
+        public StartGame(JTextField v) {
+            this.userNameInput = v;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String name = userNameInput.getText();
+
+            if (name != "") {
+                game.setUserName(name);
+                getContentPane().removeAll();
+                renderButtons();
+            }
+        }
     }
 }

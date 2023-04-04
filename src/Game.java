@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Game {
     private int[] data;
     private final int[] gaveOver = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
+    private String userName;
 
     public Game() {
 //        int[] arr = this.initRandomize();
@@ -86,5 +87,13 @@ public class Game {
                 System.out.println();
             }
         }
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
