@@ -3,13 +3,13 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
-    int[] data;
-    int[] gaveOver = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
+    private int[] data;
+    private final int[] gaveOver = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
 
     public Game() {
-        int[] arr = this.initRandomize();
+//        int[] arr = this.initRandomize();
 //      TO TEST when game is over
-//      int[] arr = {1,2,3,4,5,6,7,8,9,10,11,12,13,0,14,15};
+      int[] arr = {1,2,3,4,5,6,7,8,9,10,11,12,13,0,14,15};
         this.printBoard(arr);
         data = arr;
     }
@@ -62,7 +62,7 @@ public class Game {
         return pos;
     }
 
-    public int[] getXYCoordinates (int v, int[] arr) {
+    public int[] getXYCoordinates(int v, int[] arr) {
         int[] position = new int[2];
 
         for (int i = 0; i < arr.length; i++) {
