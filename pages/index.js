@@ -11,7 +11,7 @@ import uniqid from 'uniqid';
 export default function Home() {
   const [playersData, setPlayersData] = useState();
   // [{name: 'Andrew', time: 123, moves: 123, id:'1'}, {name: 'Illia', time: 123, moves: 123, id:'2'}]
-    
+
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(null);
 
@@ -23,6 +23,7 @@ export default function Home() {
   const timer = useRef(null);
 
   const [allCells, setAllCells] = useState([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+//   const [allCells, setAllCells] = useState([1,2,3,4,5,6,7,8,9,10,11,12,13,14,0,15]) // for testing
 
   // sorting states
   const [sortedByTimeAsc, setsortedByTimeAsc ] = useState(false)
@@ -74,7 +75,7 @@ export default function Home() {
       const clickedCell = Number(e.target.value)
       const indexClickedCell = allCells.indexOf(clickedCell);
       const indexHole = allCells.indexOf(0);
-      
+
       const newArr = [...allCells];
       newArr[indexClickedCell] = 0;
       newArr[indexHole] = clickedCell;
@@ -120,7 +121,7 @@ export default function Home() {
       console.error(er);
     }
   }
-  
+
   // fetch data on load START
   useEffect(() => {
     const fetchData = async () => {
@@ -174,10 +175,10 @@ export default function Home() {
           <div className="userName">
             <p>Please, enter your name to begin:</p>
             <label htmlFor="playerName">
-              <input 
-                type="text" 
-                name='playerName' 
-                id='playerName' 
+              <input
+                type="text"
+                name='playerName'
+                id='playerName'
                 aria-label='enter player name'
                 className='w-full'
                 onChange={(e) => setPlayerName(e.target.value)} />
@@ -187,7 +188,7 @@ export default function Home() {
           </div>
           }
 
-      
+
           {playersData && playersData.length && !gameStarted ?
               <div className="table">
                 <h2>Leaderboard</h2>
@@ -197,8 +198,8 @@ export default function Home() {
                         <th>
                           <div>
                             <span>Name</span>
-                            <button 
-                              className={`sort-button ${sortedByName ? 'descending' : 'ascending'}`} 
+                            <button
+                              className={`sort-button ${sortedByName ? 'descending' : 'ascending'}`}
                               aria-label={`sort players by name in ${sortedByName ? 'descending order' : 'ascending order'}`}
                               name='name'
                               onClick={sort}
@@ -208,8 +209,8 @@ export default function Home() {
                         <th>
                           <div>
                             <span>Time</span>
-                            <button 
-                              className={`sort-button ${sortedByTimeAsc ? 'descending' : 'ascending'}`} 
+                            <button
+                              className={`sort-button ${sortedByTimeAsc ? 'descending' : 'ascending'}`}
                               aria-label={`sort players by time in ${sortedByTimeAsc ? 'descending order' : 'ascending order'}`}
                               name='time'
                               onClick={sort}
@@ -219,8 +220,8 @@ export default function Home() {
                         <th>
                           <div>
                             <span>Moves</span>
-                            <button 
-                              className={`sort-button ${sortedByMoves ? 'descending' : 'ascending'}`} 
+                            <button
+                              className={`sort-button ${sortedByMoves ? 'descending' : 'ascending'}`}
                               aria-label={`sort players by moves in ${sortedByMoves ? 'descending order' : 'ascending order'}`}
                               name='moves'
                               onClick={sort}
