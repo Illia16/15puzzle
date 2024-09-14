@@ -17,6 +17,7 @@ import java.util.UUID;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -147,7 +148,7 @@ public class Game {
         return dotenv.get("API_KEY");
     }
 
-    public List<UserData> getUsersData() {
+    public List<Map<String, Object>> getUsersData() {
         String apiUrl = this.getApiUrl();
         String apiKey = this.getApiKey();
 
@@ -168,7 +169,7 @@ public class Game {
             if (response.statusCode() == 200) {
                  // Parse the JSON response
                  ObjectMapper mapper = new ObjectMapper();
-                 return mapper.readValue(response.body(), new TypeReference<List<UserData>>(){});
+                 return mapper.readValue(response.body(), new TypeReference<List<Map<String, Object>>>(){});
             } else {
                 System.out.println("Error: " + response.statusCode());
             }

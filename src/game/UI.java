@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 public class UI extends JFrame {
@@ -158,7 +159,7 @@ public class UI extends JFrame {
 
     public void renderResultsTable(JPanel resultsPanel) {
         // Fetch user data
-        List<UserData> usersData = game.getUsersData();
+        List<Map<String, Object>> usersData = game.getUsersData();
 
         // Define column names
         String[] columnNames = {"Name", "Time", "Moves"};
@@ -166,10 +167,10 @@ public class UI extends JFrame {
         // Convert user data into rows for the table
         Object[][] rowData = new Object[usersData.size()][columnNames.length];
         for (int i = 0; i < usersData.size(); i++) {
-            UserData user = usersData.get(i);
-            rowData[i][0] = user.getName();
-            rowData[i][1] = formatTime(user.getTime());
-            rowData[i][2] = user.getMoves();
+            Map<String, Object> user = usersData.get(i);
+            rowData[i][0] = user.get("name");
+            rowData[i][1] = formatTime((Integer) user.get("time"));
+            rowData[i][2] = user.get("moves");
         }
     
         // Create a table model with data and column names
