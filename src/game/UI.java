@@ -1,8 +1,12 @@
+package game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class UI extends JFrame {
     Game game;
@@ -27,16 +31,32 @@ public class UI extends JFrame {
     }
 
     public void renderMainMenu() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS)); // Use Y_AXIS layout for vertical stacking
+    
+        // Create and add the results table panel
+        JPanel resultsPanel = new JPanel();
+        resultsPanel.setLayout(new BorderLayout());
+        renderResultsTable(resultsPanel); // Render the results table into the resultsPanel
+    
+        mainPanel.add(resultsPanel); // Add the resultsPanel before the input components
+    
+        // Create and add the input components
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 15, 15));
         JLabel label = new JLabel("Enter your name:");
         JTextField input = new JTextField(30);
-        JButton btn = new JButton("Ok");
-        btn.addActionListener(new StartGame(input));
-        panel.add(label);
-        panel.add(input);
-        panel.add(btn);
-        getContentPane().add(panel);
+        JButton startGameBtn = new JButton("Start Game");
+    
+        startGameBtn.addActionListener(new StartGame(input));
+    
+        inputPanel.add(label);
+        inputPanel.add(input);
+        inputPanel.add(startGameBtn);
+    
+        mainPanel.add(inputPanel); // Add the inputPanel after the resultsPanel
+    
+        getContentPane().add(mainPanel);
         pack();
     }
 
@@ -66,6 +86,7 @@ public class UI extends JFrame {
         int clickedNum = Integer.parseInt(clickedButton.getText());
         int[] currentPosition = game.getXYCoordinates(clickedNum, game.getData());
         int[] currentPositionHole = game.getXYCoordinates(0, game.getData());
+        game.setUserMoves(game.getUserMoves()+1);
 
         if (game.checkIfMovable(currentPosition, currentPositionHole)) {
             swapButtons(clickedNum);
@@ -77,7 +98,7 @@ public class UI extends JFrame {
         int idxHole = game.getNumberIndex(0, game.getData());
 
         game.makeMove(clickedNum, idxNum, idxHole);
-//        game.printBoard(game.getData());
+        // game.printBoard(game.getData());
         Container board = getContentPane();
         Component btn1 = board.getComponent(idxNum);
         Component zero = board.getComponent(idxHole);
@@ -93,12 +114,13 @@ public class UI extends JFrame {
                 button.removeActionListener(button.getActionListeners()[0]);
             }
 
+            game.stopTimer();
             showGameOverMsg();
         }
     }
 
     public void showGameOverMsg() {
-        Timer timer = new Timer(3000, new ActionListener() {
+        Timer timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Container container = getContentPane();
@@ -107,6 +129,7 @@ public class UI extends JFrame {
                 container.setBackground(Color.ORANGE);
                 container.revalidate();
                 container.repaint();
+                game.postUsersData();
             }
         });
         timer.setRepeats(false);
@@ -125,10 +148,47 @@ public class UI extends JFrame {
             String name = userNameInput.getText();
 
             if (name != "") {
+                game.startTimer();
                 game.setUserName(name);
                 getContentPane().removeAll();
                 renderButtons();
             }
         }
+    }
+
+    public void renderResultsTable(JPanel resultsPanel) {
+        // Fetch user data
+        List<UserData> usersData = game.getUsersData();
+
+        // Define column names
+        String[] columnNames = {"Name", "Time", "Moves"};
+    
+        // Convert user data into rows for the table
+        Object[][] rowData = new Object[usersData.size()][columnNames.length];
+        for (int i = 0; i < usersData.size(); i++) {
+            UserData user = usersData.get(i);
+            rowData[i][0] = user.getName();
+            rowData[i][1] = formatTime(user.getTime());
+            rowData[i][2] = user.getMoves();
+        }
+    
+        // Create a table model with data and column names
+        DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
+    
+        // Create and set up the table
+        JTable table = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFillsViewportHeight(true);
+    
+        // Add the table to the resultsPanel
+        resultsPanel.setLayout(new BorderLayout());
+        resultsPanel.add(scrollPane, BorderLayout.CENTER);
+    }
+    
+    // Helper method to format time in MM:SS
+    private String formatTime(int timeInSeconds) {
+        int minutes = timeInSeconds / 60;
+        int seconds = timeInSeconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
     }
 }
