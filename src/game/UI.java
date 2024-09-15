@@ -126,8 +126,13 @@ public class UI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Container container = getContentPane();
                 container.removeAll();
+                container.setLayout(new BorderLayout());
                 container.add(new JLabel("Game Over. Congrats, " + game.getUserName(), SwingConstants.CENTER));
                 container.setBackground(Color.ORANGE);
+                JButton goToMenu = new JButton("Back to the main menu");
+                container.add(goToMenu, BorderLayout.SOUTH);
+                goToMenu.addActionListener(e2 -> goToMainMenu());
+
                 container.revalidate();
                 container.repaint();
                 game.postUsersData();
@@ -135,6 +140,15 @@ public class UI extends JFrame {
         });
         timer.setRepeats(false);
         timer.start();
+    }
+
+    // Method to handle button clicks
+    private void goToMainMenu() {
+        game.setUserName("");
+        game.setUserMoves(0);
+        game.setUserTime(0);
+        getContentPane().removeAll();
+        renderMainMenu();
     }
 
     public class StartGame implements ActionListener {
@@ -147,8 +161,7 @@ public class UI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             String name = userNameInput.getText();
-
-            if (name != "") {
+            if (!name.trim().equals("")) {
                 game.startTimer();
                 game.setUserName(name);
                 getContentPane().removeAll();

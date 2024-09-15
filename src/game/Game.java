@@ -29,8 +29,8 @@ public class Game {
     private static final Dotenv dotenv = Dotenv.load();
     private int[] data;
     private final int[] gaveOver = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0};
-    private String userName;
-    private int userMoves;
+    private String userName = "";
+    private int userMoves = 0;
     private int userTime = 0;
     private ScheduledExecutorService scheduler;
 
