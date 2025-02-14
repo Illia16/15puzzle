@@ -182,7 +182,7 @@ public class UI extends JFrame {
         for (int i = 0; i < usersData.size(); i++) {
             Map<String, Object> user = usersData.get(i);
             rowData[i][0] = user.get("name");
-            rowData[i][1] = formatTime((Integer) user.get("time"));
+            rowData[i][1] = formatTime(Integer.parseInt(user.get("time").toString()));
             rowData[i][2] = user.get("moves");
         }
     
